@@ -7,7 +7,7 @@ const ENDPOINT = 'fal-ai/kling-video/v2.6/pro/image-to-video'
 const COST_PER_SECOND_AUDIO_OFF = 0.07
 const COST_PER_SECOND_AUDIO_ON = 0.14
 
-export const maxDuration = 600
+export const maxDuration = 300
 
 interface KlingResult {
   video?: {
@@ -104,7 +104,7 @@ export async function POST(request: Request) {
     let completed = false
 
     while (!completed) {
-      if (Date.now() - startedAt > 600000) {
+      if (Date.now() - startedAt > 290000) {
         throw new Error('Video 生成 timeout，請 retry')
       }
 
