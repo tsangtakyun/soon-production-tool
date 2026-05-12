@@ -3,7 +3,7 @@ import { JsonImporter } from '@/components/JsonImporter'
 export default function HomePage() {
   return (
     <main className="shell stack">
-      <header className="stack" style={{ gap: 10 }}>
+      <header className="stack soon-hide-embedded" style={{ gap: 10 }}>
         <p className="kicker">SOON 製作工具</p>
         <h1 className="display">Storyboard 圖像生成</h1>
         <p style={{ color: 'var(--text-secondary)', maxWidth: 720 }}>
