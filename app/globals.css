@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
 :root {
-  --bg: #0d0d0d;
-  --surface: #1a1a1a;
-  --surface-2: #121212;
-  --border: #2e2e2e;
-  --text-primary: #f0ede8;
-  --text-secondary: #8a8580;
-  --muted: #6b6b6b;
-  --accent: #c8a882;
+  --bg: var(--soon-bg);
+  --surface: var(--soon-surface);
+  --surface-2: var(--soon-surface2);
+  --border: var(--soon-border);
+  --text-primary: var(--soon-text);
+  --text-secondary: var(--soon-text-secondary);
+  --muted: var(--soon-text-muted);
+  --accent: var(--soon-purple-light);
   --status-generating: #3b82f6;
   --status-done: #22c55e;
   --status-error: #ef4444;
@@ -22,8 +22,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text-primary);
-  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas,
-    monospace;
+  font-family: system-ui, sans-serif;
 }
 
 a {
@@ -37,8 +36,8 @@ textarea {
 }
 
 button {
-  border: 1px solid var(--border);
-  border-radius: 4px;
+  border: 0.5px solid var(--border);
+  border-radius: var(--soon-radius);
   background: var(--surface);
   color: var(--text-primary);
   padding: 10px 12px;
@@ -57,8 +56,8 @@ button:disabled {
 input,
 textarea {
   width: 100%;
-  border: 1px solid var(--border);
-  border-radius: 4px;
+  border: 0.5px solid var(--border);
+  border-radius: var(--soon-radius);
   background: var(--surface-2);
   color: var(--text-primary);
   padding: 11px 12px;
@@ -95,8 +94,8 @@ label span,
 
 .panel,
 .shot-card {
-  border: 1px solid var(--border);
-  border-radius: 4px;
+  border: 0.5px solid var(--border);
+  border-radius: var(--soon-radius-lg);
   background: var(--surface);
 }
 
