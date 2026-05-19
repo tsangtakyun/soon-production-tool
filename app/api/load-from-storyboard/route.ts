@@ -15,12 +15,27 @@ export async function POST(req: NextRequest) {
 
   const { data: storyboard, error: storyboardError } = await supabase
     .from('storyboards')
-    .select('*, scripts(*)')
+    .select('*')
     .eq('id', storyboardId)
     .single()
 
   if (storyboardError || !storyboard) {
-    return NextResponse.json({ error: 'not found' }, { status: 404 })
+    const message = storyboardError?.message || 'not found'
+    const status = message.toLowerCase().includes('invalid api key') ? 500 : 404
+    return NextResponse.json({ error: message }, { status })
+  }
+
+  let script: any = null
+  const scriptId = storyboard.script_id || storyboard.scriptId
+
+  if (scriptId) {
+    const { data: scriptData } = await supabase
+      .from('scripts')
+      .select('*')
+      .eq('id', scriptId)
+      .maybeSingle()
+
+    script = scriptData
   }
 
   const { data: shots, error: shotsError } = await supabase
@@ -37,10 +52,6 @@ export async function POST(req: NextRequest) {
   if (!shots || shots.length === 0) {
     return NextResponse.json({ error: 'no AI generation shots' }, { status: 404 })
   }
-
-  const script = Array.isArray(storyboard.scripts)
-    ? storyboard.scripts[0]
-    : storyboard.scripts
 
   const { data: session, error: sessionError } = await supabase
     .from('production_sessions')

@@ -73,7 +73,7 @@ export function JsonImporter() {
   }
 
   return (
-    <section className="panel stack" style={{ maxWidth: 780 }}>
+    <section className="panel stack" style={{ width: '100%', maxWidth: '100%' }}>
       <label
         onDragOver={(event) => event.preventDefault()}
         onDrop={(event) => {

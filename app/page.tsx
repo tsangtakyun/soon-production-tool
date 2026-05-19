@@ -11,12 +11,7 @@ function ProgressBar() {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
       {labels.map((label, index) => (
-        <div
-          key={label}
-          style={{
-            display: 'contents',
-          }}
-        >
+        <div key={label} style={{ display: 'contents' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <div
               style={{
@@ -98,7 +93,10 @@ export default function HomePage() {
 
   if (loading || hasStoryboardId) {
     return (
-      <main className="shell stack">
+      <main
+        className="shell stack"
+        style={{ width: '100%', maxWidth: '100%', padding: 24, margin: 0 }}
+      >
         <div
           style={{
             display: 'flex',
@@ -110,7 +108,7 @@ export default function HomePage() {
             textAlign: 'center',
           }}
         >
-          <p style={{ color: '#9090a8', fontSize: 14, margin: 0 }}>
+          <p style={{ color: error ? '#ef4444' : '#9090a8', fontSize: 14, margin: 0 }}>
             {error || '正在載入分鏡資料...'}
           </p>
           {error && (
@@ -124,7 +122,10 @@ export default function HomePage() {
   }
 
   return (
-    <main className="shell stack">
+    <main
+      className="shell stack"
+      style={{ width: '100%', maxWidth: '100%', padding: 24, margin: 0 }}
+    >
       <header
         style={{
           display: 'flex',
@@ -178,7 +179,8 @@ export default function HomePage() {
           border: '1px solid #2a2a3a',
           borderRadius: 12,
           padding: 24,
-          textAlign: 'center',
+          textAlign: 'left',
+          width: '100%',
         }}
       >
         <p style={{ color: '#9090a8', fontSize: 13, margin: '0 0 16px' }}>
