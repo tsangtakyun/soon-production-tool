@@ -173,8 +173,12 @@ export default function HomePage() {
           width: '100%',
         }}
       >
-        <p style={{ color: '#9090a8', fontSize: 13, margin: '0 0 16px' }}>
-          或手動匯入 Storyboard JSON
+        <p style={{ color: '#9090a8', fontSize: 13, margin: '0 0 8px' }}>
+          手動匯入分鏡檔案
+        </p>
+        <p style={{ fontSize: 13, color: '#9090a8', margin: '0 0 16px', lineHeight: 1.6 }}>
+          從分鏡工作台按「推去製作清單」會自動載入。<br />
+          如需手動上載，請將分鏡 JSON 檔案拖入下方。
         </p>
         <JsonImporter />
       </section>

@@ -110,7 +110,7 @@ export function JsonImporter() {
       </label>
 
       <label className="stack" style={{ gap: 8 }}>
-        <span>Session 標題</span>
+        <span>工作階段標題（可留空）</span>
         <input
           value={title}
           placeholder="可留空"
@@ -122,7 +122,7 @@ export function JsonImporter() {
         <p className="meta" style={{ margin: 0 }}>
           {parsed
             ? `總共 ${parsed.shotCount} 個鏡頭 / ${parsed.aiShots.length} 個 AI 鏡頭`
-            : '等待 JSON'}
+            : '等待檔案'}
         </p>
         <button type="button" disabled={!rawJson || importing} onClick={handleImport}>
           {importing ? '匯入中...' : '匯入'}
