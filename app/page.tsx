@@ -147,29 +147,19 @@ export default function HomePage() {
         </div>
       </header>
 
-      <div
+      <img
+        src="/youtube-production-banner.jpg"
+        alt="YouTube 製作工作台"
         style={{
           width: '100%',
           height: 120,
-          background: 'linear-gradient(135deg, #0d0d1a 0%, #1a1030 40%, #0a1628 100%)',
+          objectFit: 'cover',
+          objectPosition: 'center',
           borderRadius: 12,
+          display: 'block',
           marginBottom: 14,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
         }}
-      >
-        <p
-          style={{
-            fontSize: 12,
-            color: 'rgba(255,255,255,0.3)',
-            letterSpacing: '0.2em',
-            margin: 0,
-          }}
-        >
-          YOUTUBE PRODUCTION
-        </p>
-      </div>
+      />
 
       <ProgressBar />
 
