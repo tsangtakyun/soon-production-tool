@@ -26,7 +26,7 @@ export default async function SessionPage({ params }: { params: { id: string } }
   }
 
   return (
-    <main className="shell stack">
+    <main className="shell stack" style={{ width: '100%', maxWidth: '100%', padding: 24, margin: 0 }}>
       <ShotList session={session} initialShots={shots ?? []} />
     </main>
   )

@@ -74,42 +74,57 @@ export function ShotList({ session, initialShots }: ShotListProps) {
 
   return (
     <>
-      <header className="panel stack">
-        <div className="spread">
-          <div>
-            <p className="kicker">製作 Session</p>
-            <h1 className="display" style={{ fontSize: 'clamp(34px, 5vw, 56px)' }}>
-              {currentSession.title ?? '未命名 Session'}
-            </h1>
-          </div>
+      <header
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'flex-start',
+          gap: 16,
+          marginBottom: 12,
+        }}
+      >
+        <div>
+          <p style={{ fontSize: 12, color: '#5a5a72', margin: '0 0 4px' }}>
+            SOON 創作工作台
+          </p>
+          <h1 style={{ fontSize: 24, fontWeight: 700, color: '#f0f0f5', margin: 0 }}>
+            {currentSession.title ?? 'YouTube 製作工作台'}
+          </h1>
+          <p style={{ fontSize: 13, color: '#9090a8', margin: '4px 0 0' }}>
+            AI 生成每個鏡頭嘅素材，直接用於剪片
+          </p>
+        </div>
+        <div style={{ display: 'flex', gap: 8, flexShrink: 0, flexWrap: 'wrap' }}>
           <button
             type="button"
             disabled={batchRunning || !shots.some((shot) => shot.status === 'pending')}
             onClick={() => void generateAllPending()}
+            style={{
+              background: '#10b981',
+              color: 'white',
+              border: 'none',
+              borderRadius: 8,
+              padding: '8px 16px',
+              fontSize: 13,
+              fontWeight: 500,
+            }}
           >
-            {batchRunning ? '逐張生成中...' : '生成全部待處理鏡頭'}
+            {batchRunning ? '生成中...' : '生成所有待處理鏡頭'}
           </button>
         </div>
-        <div className="row">
-          <span className="meta">{currentSession.ai_shot_count ?? shots.length} 個 AI 鏡頭</span>
-          <span className="meta">
-            Images: ${totals.imageCost.toFixed(2)}
-          </span>
-          <span className="meta">
-            Videos: ${totals.videoCost.toFixed(2)}
-          </span>
-          <span className="meta">
-            Total: ${totals.total.toFixed(2)}
-          </span>
-          <span className="meta">
-            已有圖片：{totals.generatedImages} 張
-          </span>
-          {currentSession.reference_image_url && (
-            <span className="meta">Reference 圖像生成估算：~$0.06-0.10 / 張</span>
-          )}
-        </div>
-        {batchError && <p className="error" style={{ margin: 0 }}>{batchError}</p>}
       </header>
+
+      <section className="panel row" style={{ width: '100%', justifyContent: 'flex-start' }}>
+        <span className="meta">{currentSession.ai_shot_count ?? shots.length} 個 AI 鏡頭</span>
+        <span className="meta">Images: ${totals.imageCost.toFixed(2)}</span>
+        <span className="meta">Videos: ${totals.videoCost.toFixed(2)}</span>
+        <span className="meta">Total: ${totals.total.toFixed(2)}</span>
+        <span className="meta">已有圖片：{totals.generatedImages} 張</span>
+        {currentSession.reference_image_url && (
+          <span className="meta">Reference 圖像生成估算：~$0.06-0.10 / 張</span>
+        )}
+        {batchError && <p className="error" style={{ width: '100%', margin: 0 }}>{batchError}</p>}
+      </section>
 
       <ArtDirectionPanel
         session={currentSession}

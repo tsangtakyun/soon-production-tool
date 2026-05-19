@@ -148,23 +148,13 @@ label span,
 }
 
 .shot-masonry {
-  column-count: 3;
-  column-gap: 18px;
+  display: grid;
+  width: 100%;
+  max-width: 100%;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 18px;
 }
 
 .shot-masonry-item {
-  break-inside: avoid;
-  margin-bottom: 18px;
-}
-
-@media (max-width: 980px) {
-  .shot-masonry {
-    column-count: 2;
-  }
-}
-
-@media (max-width: 640px) {
-  .shot-masonry {
-    column-count: 1;
-  }
+  min-width: 0;
 }
