@@ -92,28 +92,62 @@ export function getDefaultTitle(data: StoryboardExportJSON): string {
     data.storyboard?.title?.trim() ||
     data.script?.title?.trim() ||
     data.script?.topic?.trim() ||
-    `製作 Session ${new Date().toLocaleString()}`
+    `Production Session ${new Date().toLocaleString('zh-HK')}`
   )
+}
+
+function readArray(value: unknown, keys: string[]): unknown[] | null {
+  if (!value || typeof value !== 'object') return null
+  const record = value as Record<string, unknown>
+
+  for (const key of keys) {
+    const candidate = record[key]
+    if (Array.isArray(candidate)) return candidate
+  }
+
+  return null
+}
+
+function extractShots(data: unknown): StoryboardExportShot[] {
+  if (Array.isArray(data)) return data as StoryboardExportShot[]
+  if (!data || typeof data !== 'object') return []
+
+  const record = data as Record<string, unknown>
+  const shotKeys = [
+    'shots',
+    'storyboard_shots',
+    'storyboardShots',
+    'production_shots',
+    'productionShots',
+  ]
+
+  return (
+    readArray(record, shotKeys) ||
+    readArray(record.storyboard, shotKeys) ||
+    readArray(record.data, shotKeys) ||
+    readArray((record.data as Record<string, unknown> | undefined)?.storyboard, shotKeys) ||
+    []
+  ) as StoryboardExportShot[]
 }
 
 export function parseStoryboardJSON(data: unknown): ParseResult {
   if (!data || typeof data !== 'object') {
-    throw new Error('JSON schema 唔符合，缺少 shots')
+    throw new Error('JSON schema 唔符合，請上載 storyboard JSON')
   }
 
   const storyboard = data as StoryboardExportJSON
-  if (!Array.isArray(storyboard.shots)) {
+  const shots = extractShots(data)
+
+  if (!Array.isArray(shots) || shots.length === 0) {
     throw new Error('JSON schema 唔符合，缺少 shots')
   }
 
-  const missingFootageSource = storyboard.shots.find(
-    (shot) => getFootageSource(shot) === undefined
-  )
+  const missingFootageSource = shots.find((shot) => getFootageSource(shot) === undefined)
   if (missingFootageSource) {
     throw new Error('JSON schema 唔符合，缺少 footageSourceSlug')
   }
 
-  const aiShots = storyboard.shots
+  const aiShots = shots
     .map((shot, index) => ({ shot, index }))
     .filter(({ shot }) => getFootageSource(shot) === 'ai_generation')
     .map(({ shot, index }) => {
@@ -126,7 +160,7 @@ export function parseStoryboardJSON(data: unknown): ParseResult {
 
       return {
         shotIndex,
-        shotLabel: `鏡頭 ${shotIndex}`,
+        shotLabel: `Shot ${shotIndex}`,
         productionPrompt: prompt,
       }
     })
@@ -137,7 +171,7 @@ export function parseStoryboardJSON(data: unknown): ParseResult {
 
   return {
     title: getDefaultTitle(storyboard),
-    shotCount: storyboard.shots.length,
+    shotCount: shots.length,
     aiShots,
   }
 }
